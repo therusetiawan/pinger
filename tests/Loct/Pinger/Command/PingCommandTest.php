@@ -16,6 +16,6 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertRegExp('/All host has been successfully ping-ed/', $commandTester->getDisplay());
+        $this->assertRegExp('/Finished ping-ing all hosts/', $commandTester->getDisplay());
     }
 }
