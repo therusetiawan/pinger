@@ -15,6 +15,6 @@ class PingCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('All host has been successfully ping-ed');
+        $output->writeln('<info>All host has been successfully ping-ed</info>');
     }
 }
