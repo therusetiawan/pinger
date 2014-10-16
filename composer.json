@@ -1,0 +1,21 @@
+{
+    "name": "herloct/pinger",
+    "description": "CLI command to ping some host and send notification if the host unreached",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "herloct",
+            "email": "herloct@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/console": "2.3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
