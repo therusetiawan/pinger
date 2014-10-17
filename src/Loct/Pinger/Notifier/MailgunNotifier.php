@@ -59,6 +59,10 @@ class MailgunNotifier implements NotifierInterface
         $domain = $this->domain;
         $recipients = $this->recipients;
 
+        if (empty($recipients) || empty($pingResults)) {
+            return;
+        }
+
         $failedHosts = [];
         foreach ($pingResults as $host => $result) {
             if (is_null($result)) {
@@ -77,14 +81,16 @@ class MailgunNotifier implements NotifierInterface
                 $text .= PHP_EOL."- {$host}: {$info}";
             }
 
+            $messageBuilder = $mailgun->MessageBuilder();
+            $messageBuilder->setFromAddress("no-reply@{$domain}");
+            $messageBuilder->setSubject($subject);
+            $messageBuilder->setTextBody($text);
+
             foreach ($recipients as $recipient) {
-                $mailgun->sendMessage($domain, [
-                    'from' => "mailer@{$domain}",
-                    'to' => $recipient,
-                    'subject' => $subject,
-                    'text' => $text
-                ]);
+                $messageBuilder->addToRecipient($recipient);
             }
+
+            $mailgun->post("{$domain}/messages", $messageBuilder->getMessage());
         }
     }
 }
