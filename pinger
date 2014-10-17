@@ -5,7 +5,6 @@ require __DIR__ . '/vendor/autoload.php';
 
 use \Loct\Pinger\Provider as Provider;
 use \Pimple\Container;
-use \Symfony\Component\Console\Application;
 
 $pimple = new Container();
 $pimple['app_path'] = __DIR__ . '/app';
@@ -13,9 +12,6 @@ $pimple['app_path'] = __DIR__ . '/app';
 $pimple->register(new Provider\ConfigProvider());
 $pimple->register(new Provider\NotifierProvider());
 $pimple->register(new Provider\CommandProvider());
+$pimple->register(new Provider\ConsoleProvider());
 
-$command = $pimple['ping_command'];
-
-$application = new Application();
-$application->add($command);
-$application->run();
+$pimple['console']->run();
