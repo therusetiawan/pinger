@@ -1,0 +1,90 @@
+<?php
+namespace Loct\Pinger\Notifier;
+
+use Mailgun\Mailgun;
+
+/**
+ * Notify recipients by email using Mailgun
+ *
+ * @author herloct
+ */
+class MailgunNotifier implements NotifierInterface
+{
+
+    /**
+     * Mailgun
+     *
+     * @var Mailgun;
+     */
+    private $mailgun = null;
+
+    /**
+     * Sender domain
+     *
+     * @var string
+     */
+    private $domain = null;
+
+    /**
+     * Array of recipient
+     *
+     * @var string[]
+     */
+    private $recipients = [];
+
+    /**
+     *
+     * @param Mailgun $mailgun
+     *            Mailgun
+     * @param string $domain
+     *            Sender domain
+     * @param string[] $recipients
+     *            Array of recipient
+     */
+    public function __construct(Mailgun $mailgun, $domain, array $recipients)
+    {
+        $this->mailgun = $mailgun;
+        $this->domain = $domain;
+        $this->recipients = $recipients;
+    }
+
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \Loct\Pinger\Notifier\NotifierInterface::notify()
+     */
+    public function notify($pingResults)
+    {
+        $mailgun = $this->mailgun;
+        $domain = $this->domain;
+        $recipients = $this->recipients;
+
+        $failedHosts = [];
+        foreach ($pingResults as $host => $result) {
+            if (is_null($result)) {
+                $failedHosts[] = $host;
+            }
+        }
+
+        if (count($failedHosts) > 0) {
+            $date = (new \DateTime())->setTimezone(new \DateTimeZone('Asia/Jakarta'))
+                ->format('Y-m-d H:i:s');
+            $subject = "Pinger Report : {$date} : Cannot reach some of your hosts";
+            $text = 'Sorry, we cannot reach some of your hosts';
+
+            foreach ($pingResults as $host => $result) {
+                $info = is_null($result) ? 'Unreachable' : "{$result}ms";
+                $text .= PHP_EOL."- {$host}: {$info}";
+            }
+
+            foreach ($recipients as $recipient) {
+                $mailgun->sendMessage($domain, [
+                    'from' => "mailer@{$domain}",
+                    'to' => $recipient,
+                    'subject' => $subject,
+                    'text' => $text
+                ]);
+            }
+        }
+    }
+}
