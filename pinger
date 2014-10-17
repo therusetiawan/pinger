@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use \Illuminate\Config\FileLoader;
+use \Illuminate\Config\Repository;
+use \Illuminate\Filesystem\Filesystem;
+use \Loct\Pinger\Command\PingCommand;
+use \Loct\Pinger\Notifier\MailgunNotifier;
+use \Mailgun\Mailgun;
+use \Symfony\Component\Console\Application;
+
+$configPath = __DIR__ . '/app/config/';
+
+$filesystem = new Filesystem();
+$loader = new FileLoader($filesystem, $configPath);
+
+$environment = file_exists(__DIR__ . '/app/config/dev/') ? 'dev' : 'production';
+
+$config = new Repository($loader, $environment);
+
+$hosts = $config->get('pinger.hosts');
+
+$apiKey = $config->get('pinger.notifications.mailgun.api_key');
+$domain = $config->get('pinger.notifications.mailgun.domain');
+$recipients = $config->get('pinger.notifications.mailgun.recipients');
+
+$mailgun = new Mailgun($apiKey);
+$notifier = new MailgunNotifier($mailgun, $domain, $recipients);
+
+$application = new Application();
+$application->add(new PingCommand($hosts, $notifier));
+$application->run();
