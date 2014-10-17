@@ -6,12 +6,26 @@ use \Mailgun\Mailgun;
 use \Pimple\Container;
 use \Pimple\ServiceProviderInterface;
 
+/**
+ * Service provider for notifier related classes and parameters.
+ *
+ * @author herloct <herloct@gmail.com>
+ */
 class NotifierProvider implements ServiceProviderInterface
 {
 
+    /**
+     * Registers services on the given container.
+     *
+     * This method should only be used to configure services and parameters.
+     * It should not get services.
+     *
+     * @param Container $pimple An Container instance
+     */
     public function register(Container $pimple)
     {
-        $pimple['notifier'] = function ($pimple) {
+        $pimple['notifier'] = function ($pimple)
+        {
             $config = $pimple['config'];
 
             $apiKey = $config->get('pinger.notifications.mailgun.api_key');
@@ -22,5 +36,4 @@ class NotifierProvider implements ServiceProviderInterface
             return new MailgunNotifier($mailgun, $domain, $recipients);
         };
     }
-
 }
