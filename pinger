@@ -4,27 +4,20 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use \Loct\Pinger\Command\PingCommand;
-use \Loct\Pinger\Notifier\MailgunNotifier;
 use \Loct\Pinger\Provider as Provider;
 use \Pimple\Container;
-use \Mailgun\Mailgun;
 use \Symfony\Component\Console\Application;
 
 $pimple = new Container();
 $pimple['app_path'] = __DIR__ . '/app';
 
 $pimple->register(new Provider\ConfigProvider());
+$pimple->register(new Provider\NotifierProvider());
 
 $config = $pimple['config'];
 
 $hosts = $config->get('pinger.hosts');
-
-$apiKey = $config->get('pinger.notifications.mailgun.api_key');
-$domain = $config->get('pinger.notifications.mailgun.domain');
-$recipients = $config->get('pinger.notifications.mailgun.recipients');
-
-$mailgun = new Mailgun($apiKey);
-$notifier = new MailgunNotifier($mailgun, $domain, $recipients);
+$notifier = $pimple['notifier'];
 
 $application = new Application();
 $application->add(new PingCommand($hosts, $notifier));
