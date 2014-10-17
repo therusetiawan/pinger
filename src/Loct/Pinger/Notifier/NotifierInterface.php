@@ -2,16 +2,16 @@
 namespace Loct\Pinger\Notifier;
 
 /**
- * Notifier Interface
+ * NotifierInterface is the interface implemented by all notifier classes.
  *
- * @author herloct
+ * @author herloct <herloct@gmail.com>
  */
 interface NotifierInterface
 {
     /**
-     * Notify all recipients
+     * Notify all recipients.
      *
      * @param array $pingResults Ping results
      */
-    public function notify($pingResults);
+    public function notify(array $pingResults);
 }

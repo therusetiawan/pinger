@@ -4,9 +4,9 @@ namespace Loct\Pinger\Notifier;
 use Mailgun\Mailgun;
 
 /**
- * Notify recipients by email using Mailgun
+ * Notify recipients by email using Mailgun.
  *
- * @author herloct
+ * @author herloct <herloct@gmail.com>
  */
 class MailgunNotifier implements NotifierInterface
 {
@@ -33,13 +33,11 @@ class MailgunNotifier implements NotifierInterface
     private $recipients = [];
 
     /**
+     * Constructor.
      *
-     * @param Mailgun $mailgun
-     *            Mailgun
-     * @param string $domain
-     *            Sender domain
-     * @param string[] $recipients
-     *            Array of recipient
+     * @param Mailgun  $mailgun    Mailgun
+     * @param string   $domain     Sender domain
+     * @param string[] $recipients Array of recipient
      */
     public function __construct(Mailgun $mailgun, $domain, array $recipients)
     {
@@ -49,14 +47,14 @@ class MailgunNotifier implements NotifierInterface
     }
 
     /**
-     * (non-PHPdoc)
+     * Notify all recipients
      *
-     * @see \Loct\Pinger\Notifier\NotifierInterface::notify()
+     * @param array $pingResults Ping results
      */
-    public function notify($pingResults)
+    public function notify(array $pingResults)
     {
-        $mailgun = $this->mailgun;
-        $domain = $this->domain;
+        $mailgun    = $this->mailgun;
+        $domain     = $this->domain;
         $recipients = $this->recipients;
 
         if (empty($recipients) || empty($pingResults)) {
