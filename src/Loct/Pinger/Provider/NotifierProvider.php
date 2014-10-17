@@ -33,6 +33,7 @@ class NotifierProvider implements ServiceProviderInterface
             $recipients = $config->get('pinger.notifications.mailgun.recipients');
 
             $mailgun = new Mailgun($apiKey);
+
             return new MailgunNotifier($mailgun, $domain, $recipients);
         };
     }
