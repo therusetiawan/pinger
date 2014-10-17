@@ -27,7 +27,7 @@ class ConsoleProvider implements ServiceProviderInterface
         {
             $command = $pimple['ping_command'];
 
-            $application = new Application();
+            $application = new Application($pimple['app_name'], $pimple['app_version']);
             $application->add($command);
 
             return $application;
