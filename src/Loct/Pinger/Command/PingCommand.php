@@ -7,6 +7,11 @@ use \Symfony\Component\Console\Output\OutputInterface;
 use \JJG\Ping;
 use Loct\Pinger\Notifier\NotifierInterface;
 
+/**
+ * Ping registered hosts and send notification.
+ *
+ * @author herloct <herloct@gmail.com>
+ */
 class PingCommand extends Command
 {
 
@@ -18,26 +23,16 @@ class PingCommand extends Command
     private $hosts = [];
 
     /**
-     * Get Array of hosts
-     *
-     * @return string[] Array of hosts
-     */
-    protected function getHosts()
-    {
-        return $this->hosts;
-
-        print_r($this->hosts);
-    }
-
-    /**
      *
      * @var Loct\Pinger\Notifier\NotifierInterface
      */
     private $notifier = null;
 
     /**
+     * Constructor.
      *
-     * @param string[] $hosts
+     * @param string[]          $hosts    Array of host
+     * @param NotifierInterface $notifier Notifier
      */
     public function __construct(array $hosts, NotifierInterface $notifier)
     {
@@ -57,7 +52,7 @@ class PingCommand extends Command
     {
         $pingedHosts = [];
 
-        $hosts = $this->getHosts();
+        $hosts = $this->hosts;
         foreach ($hosts as $host) {
             $ping = new Ping($host);
             $latency = $ping->ping();
