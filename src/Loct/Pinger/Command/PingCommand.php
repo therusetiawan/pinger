@@ -5,6 +5,7 @@ use \Symfony\Component\Console\Command\Command;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \JJG\Ping;
+use Loct\Pinger\Notifier\NotifierInterface;
 
 class PingCommand extends Command
 {
@@ -30,11 +31,18 @@ class PingCommand extends Command
 
     /**
      *
+     * @var Loct\Pinger\Notifier\NotifierInterface
+     */
+    private $notifier = null;
+
+    /**
+     *
      * @param string[] $hosts
      */
-    public function __construct(array $hosts)
+    public function __construct(array $hosts, NotifierInterface $notifier)
     {
         $this->hosts = $hosts;
+        $this->notifier = $notifier;
 
         parent::__construct();
     }
@@ -59,6 +67,9 @@ class PingCommand extends Command
                 $pingedHosts[$host] = $latency;
             }
         }
+
+        $this->notifier
+            ->notify($pingedHosts);
 
         $output->writeln('Finished ping-ing all hosts');
         foreach ($pingedHosts as $host => $result) {
