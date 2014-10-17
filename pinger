@@ -7,6 +7,8 @@ use \Loct\Pinger\Provider as Provider;
 use \Pimple\Container;
 
 $pimple = new Container();
+$pimple['app_name'] = 'Pinger';
+$pimple['app_version'] = '0.0.3';
 $pimple['app_path'] = __DIR__ . '/app';
 
 $pimple->register(new Provider\ConfigProvider());
