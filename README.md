@@ -50,6 +50,24 @@ Call this from commandline to invoke ping
 php pinger ping
 ```
 
+Call this commands to generate the documentation
+
+```sh
+vendor/bin/phpmd --reportfile build/phpmd.xml src/ xml cleancode,codesize,controversial,design,naming,unusedcode
+```
+
+```sh
+vendor/bin/phpcs --report=xml --report-file=build/phpcs.xml --standard=vendor/m6web/symfony2-coding-standard/Symfony2 src/
+```
+
+```sh
+vendor/bin/phploc --log-xml="build/phploc.xml" src/
+```
+
+```sh
+vendor/bin/phpdox
+```
+
 
 License
 -------
