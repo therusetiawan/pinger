@@ -42,12 +42,31 @@ class PingCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Configures the current command.
+     */
     protected function configure()
     {
         $this->setName('ping')
             ->setDescription('Ping some host and send notification if the host unreached');
     }
 
+    /**
+     * Executes the current command.
+     *
+     * This method is not abstract because you can use this class
+     * as a concrete class. In this case, instead of defining the
+     * execute() method, you set the code to execute by passing
+     * a Closure to the setCode() method.
+     *
+     * @param InputInterface  $input  An InputInterface instance
+     * @param OutputInterface $output An OutputInterface instance
+     *
+     * @return null|int     null or 0 if everything went fine, or an error code
+     *
+     * @throws \LogicException When this abstract method is not implemented
+     * @see    setCode()
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $pingedHosts = [];
