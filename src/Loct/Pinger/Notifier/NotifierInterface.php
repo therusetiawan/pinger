@@ -13,5 +13,5 @@ interface NotifierInterface
      *
      * @param array $pingResults Ping results
      */
-    function notify($pingResults);
+    public function notify($pingResults);
 }
