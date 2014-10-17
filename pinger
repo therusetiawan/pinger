@@ -3,22 +3,19 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use \Illuminate\Config\FileLoader;
-use \Illuminate\Config\Repository;
-use \Illuminate\Filesystem\Filesystem;
 use \Loct\Pinger\Command\PingCommand;
 use \Loct\Pinger\Notifier\MailgunNotifier;
+use \Loct\Pinger\Provider as Provider;
+use \Pimple\Container;
 use \Mailgun\Mailgun;
 use \Symfony\Component\Console\Application;
 
-$configPath = __DIR__ . '/app/config/';
+$pimple = new Container();
+$pimple['app_path'] = __DIR__ . '/app';
 
-$filesystem = new Filesystem();
-$loader = new FileLoader($filesystem, $configPath);
+$pimple->register(new Provider\ConfigProvider());
 
-$environment = file_exists(__DIR__ . '/app/config/dev/') ? 'dev' : 'production';
-
-$config = new Repository($loader, $environment);
+$config = $pimple['config'];
 
 $hosts = $config->get('pinger.hosts');
 
