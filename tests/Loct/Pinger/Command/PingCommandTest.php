@@ -1,5 +1,6 @@
 <?php
-use \Loct\Pinger\Command\PingCommand;
+namespace Loct\Pinger\Command;
+
 use \Symfony\Component\Console\Application;
 use \Symfony\Component\Console\Tester\CommandTester;
 use \PHPUnit_Framework_TestCase;
