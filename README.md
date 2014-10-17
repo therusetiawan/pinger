@@ -7,7 +7,7 @@ CLI command to ping some host and send notification if the host unreached
 Configuration
 -------------
 
-Configurations can be found on configs/ping.php
+Configurations can be found on configs/pinger.php
 
 ```php
 <?php
@@ -16,7 +16,7 @@ return [
     /**
      * Hosts to ping
      */
-    'host' => [
+    'hosts' => [
         '192.168.0.101',
         'www.google.com'
     ],
@@ -47,7 +47,7 @@ CLI Usage
 Call this from commandline to invoke ping
 
 ```sh
-php command ping
+php pinger ping
 ```
 
 
