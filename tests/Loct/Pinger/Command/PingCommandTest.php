@@ -14,8 +14,14 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
             '127.0.0.1',
             'google.com'
         ];
+        $notifier = $this->getMockBuilder('Loct\Pinger\Notifier\NotifierInterface')
+            ->getMock();
+
+        $notifier->expects($this->once())
+            ->method('notify');
+
         $application = new Application();
-        $application->add(new PingCommand($hosts));
+        $application->add(new PingCommand($hosts, $notifier));
 
         $command = $application->find('ping');
         $commandTester = new CommandTester($command);
