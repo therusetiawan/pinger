@@ -14,11 +14,7 @@ class PingCommand extends Command
      *
      * @var string[]
      */
-    private $hosts = [
-        '127.0.0.1',
-        '192.168.0.101',
-        'google.com'
-    ];
+    private $hosts = [];
 
     /**
      * Get Array of hosts
@@ -28,6 +24,19 @@ class PingCommand extends Command
     protected function getHosts()
     {
         return $this->hosts;
+
+        print_r($this->hosts);
+    }
+
+    /**
+     *
+     * @param string[] $hosts
+     */
+    public function __construct(array $hosts)
+    {
+        $this->hosts = $hosts;
+
+        parent::__construct();
     }
 
     protected function configure()
