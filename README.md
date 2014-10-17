@@ -7,7 +7,7 @@ CLI command to ping some host and send notification if the host unreached
 Configuration
 -------------
 
-Configurations can be found on configs/pinger.php
+Configurations can be found on config/pinger.php
 
 ```php
 <?php
