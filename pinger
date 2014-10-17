@@ -6,6 +6,11 @@ require __DIR__ . '/vendor/autoload.php';
 use \Loct\Pinger\Command\PingCommand;
 use \Symfony\Component\Console\Application;
 
+$hosts = [
+    '127.0.0.1',
+    'google.com'
+];
+
 $application = new Application();
-$application->add(new PingCommand());
+$application->add(new PingCommand($hosts));
 $application->run();
