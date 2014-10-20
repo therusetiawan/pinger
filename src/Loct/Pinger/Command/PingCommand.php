@@ -89,12 +89,13 @@ class PingCommand extends Command
         $output->writeln('');
         
         $table = $this->getHelper('table');
-        $table->setHeaders(['Host', 'Result']);
+        $table->setHeaders(['Host', 'Status', 'Latency']);
         
         foreach ($pingedHosts as $host => $result) {
             $table->addRow([
-                $host, 
-                is_null($result) ? 'Unreachable' : "{$result}ms"
+                $host,
+                is_null($result) ? '<fg=red>failed</fg=red>' : 'success', 
+                is_null($result) ? '-' : "{$result}ms"
             ]);
         }
         
