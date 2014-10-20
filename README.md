@@ -1,10 +1,9 @@
-[![Build Status](https://travis-ci.org/herloct/pinger.svg?branch=develop)](https://travis-ci.org/herloct/pinger) [![Code Climate](https://codeclimate.com/github/herloct/pinger/badges/gpa.svg)](https://codeclimate.com/github/herloct/pinger)
-
+[![Build Status](https://travis-ci.org/herloct/pinger.svg?branch=develop)](https://travis-ci.org/herloct/pinger) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/herloct/pinger/badges/quality-score.png?b=feature%2Fuse_simpler_ping)](https://scrutinizer-ci.com/g/herloct/pinger/) [![Code Coverage](https://scrutinizer-ci.com/g/herloct/pinger/badges/coverage.png?b=feature%2Fuse_simpler_ping)](https://scrutinizer-ci.com/g/herloct/pinger/)
 
 Pinger
 ======
 
-CLI command to ping some host and send notification if the host unreached
+CLI command using PHP to ping some host and send notification if the host unreached
 
 
 Configuration
@@ -64,7 +63,7 @@ vendor/bin/phpcs --report=xml --report-file=build/phpcs.xml --standard=vendor/m6
 ```
 
 ```sh
-vendor/bin/phploc --log-xml="build/phploc.xml" src/
+vendor/bin/phploc --log-xml=build/phploc.xml src/
 ```
 
 ```sh
