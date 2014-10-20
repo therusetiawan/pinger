@@ -17,13 +17,13 @@ class PingCommand extends Command
 
     /**
      *
-     * @var Loct\Pinger\PingFactory
+     * @var PingFactory
      */
     private $factory = null;
 
     /**
      *
-     * @var Loct\Pinger\Notifier\NotifierInterface
+     * @var NotifierInterface
      */
     private $notifier = null;
 
