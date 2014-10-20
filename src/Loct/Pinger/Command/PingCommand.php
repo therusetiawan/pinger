@@ -84,11 +84,7 @@ class PingCommand extends Command
         foreach ($hosts as $host) {
             $ping = $factory->createPing($host);
             $latency = $ping->ping();
-            if ($latency === false) {
-                $pingedHosts[$host] = null;
-            } else {
-                $pingedHosts[$host] = $latency;
-            }
+            $pingedHosts[$host] = $latency === false ? null : $latency;
         }
 
         $this->notifier
