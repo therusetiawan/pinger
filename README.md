@@ -3,7 +3,7 @@
 Pinger
 ======
 
-CLI command to ping some host and send notification if the host unreached
+CLI command using PHP to ping some host and send notification if the host unreached
 
 
 Configuration
