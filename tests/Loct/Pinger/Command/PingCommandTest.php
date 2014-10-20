@@ -10,11 +10,30 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
 
     public function testExecuteIsSucces()
     {
-        $hosts = [
-            '127.0.0.1',
-            'google.com',
-            '192.168.0.123'
+        $results = [
+            '127.0.0.1' => 0,
+            'google.com' => 10,
+            '192.168.0.123' => false
         ];
+        $hosts = array_keys($results);
+        
+        $factory = $this->getMockBuilder('Loct\Pinger\PingFactory')
+            ->getMock();
+        
+        for ($i = 0; $i < count($hosts); $i++) {
+            $ping = $this->getMockBuilder('JJG\Ping')
+                ->disableOriginalConstructor()
+                ->getMock();
+                
+            $ping->expects($this->once())
+                ->method('ping')
+                ->willReturn($results[$hosts[$i]]);
+            
+            $factory->expects($this->at($i))
+                ->method('createPing')
+                ->willReturn($ping);
+        }
+        
         $notifier = $this->getMockBuilder('Loct\Pinger\Notifier\NotifierInterface')
             ->getMock();
 
@@ -22,7 +41,7 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
             ->method('notify');
 
         $application = new Application();
-        $application->add(new PingCommand($hosts, $notifier));
+        $application->add(new PingCommand($factory, $notifier, $hosts));
 
         $command = $application->find('ping');
         $commandTester = new CommandTester($command);
