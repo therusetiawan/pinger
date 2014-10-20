@@ -11,8 +11,7 @@ class PingFactory
     /**
      * Create new Ping
      *
-     * @params string  $host Host
-     * @params integer $ttl  Ping ttl
+     * @params string $host Host to ping
      * @return Ping
      */
     public function createPing($host)
