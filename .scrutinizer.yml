@@ -2,7 +2,8 @@ tools:
     php_sim: true
     php_pdepend: true
     php_analyzer: true
-    external_code_coverage: true
+    external_code_coverage:
+        timeout: 600
 
 filter:
     excluded_paths:
@@ -57,7 +58,6 @@ checks:
         require_scope_for_properties: true
         require_scope_for_methods: true
         require_php_tag_first: true
-        require_closing_tag: true
         require_braces_around_control_structures: true
         remove_trailing_whitespace: true
         remove_php_closing_tag: true
@@ -96,7 +96,6 @@ checks:
         no_short_open_tag: true
         no_short_method_names:
             minimum: '3'
-        no_new_line_at_end_of_file: true
         no_mixed_inline_html: true
         no_long_variable_names:
             maximum: '20'
@@ -167,4 +166,3 @@ checks:
         avoid_closing_tag: true
         avoid_aliased_php_functions: true
         argument_type_checks: true
-        align_assignments: true
