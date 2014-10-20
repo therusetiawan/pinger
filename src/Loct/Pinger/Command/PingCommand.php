@@ -89,7 +89,7 @@ class PingCommand extends Command
         $output->writeln('');
         
         $table = $this->getHelper('table');
-        $table->setHeaders(['Domain', 'Result']);
+        $table->setHeaders(['Host', 'Result']);
         
         foreach ($pingedHosts as $host => $result) {
             $table->addRow([
