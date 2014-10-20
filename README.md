@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/herloct/pinger.svg?branch=develop)](https://travis-ci.org/herloct/pinger) [![Code Climate](https://codeclimate.com/github/herloct/pinger/badges/gpa.svg)](https://codeclimate.com/github/herloct/pinger)
+
+
 Pinger
 ======
 
