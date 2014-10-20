@@ -14,7 +14,7 @@ class MailgunNotifier implements NotifierInterface
     /**
      * Mailgun
      *
-     * @var Mailgun;
+     * @var Mailgun
      */
     private $mailgun = null;
 
