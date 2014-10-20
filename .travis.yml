@@ -12,3 +12,7 @@ php:
 before_script:
   - composer install --dev
   - phpenv rehash
+
+script: phpunit --coverage-clover build/logs/clover.xml
+
+after_success: CODECLIMATE_REPO_TOKEN=8432fd00f5d96695457d25cf9216a92f8629b8997a68bcdccc093852ec717ee5 ./vendor/bin/test-reporter
