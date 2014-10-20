@@ -47,14 +47,9 @@ class Ping extends \JJG\Ping
      * Ping a host.
      *
      * @param string $method
-     *   Method to use when pinging:
-     *     - exec (default): Pings through the system ping command. Fast and
-     *       robust, but a security risk if you pass through user-submitted data.
-     *     - fsockopen: Pings a server on port 80.
-     *     - socket: Creates a RAW network socket. Only usable in some
-     *       environments, as creating a SOCK_RAW socket requires root privileges.
+     *   Will always use fsockopen no matter what we choose.
      *
-     * @return mixed
+     * @return integer|boolean
      *   Latency as integer, in ms, if host is reachable or FALSE if host is down.
      */
     public function ping($method = 'exec') {
