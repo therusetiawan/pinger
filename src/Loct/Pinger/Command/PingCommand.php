@@ -85,10 +85,19 @@ class PingCommand extends Command
         $this->notifier
             ->notify($pingedHosts);
 
-        $output->writeln('Finished ping-ing all hosts');
+        $output->writeln('<info>Finished ping-ing all hosts</info>');
+        $output->writeln('');
+        
+        $table = $this->getHelper('table');
+        $table->setHeaders(['Domain', 'Result']);
+        
         foreach ($pingedHosts as $host => $result) {
-            $info = is_null($result) ? 'Unreachable' : "{$result}ms";
-            $output->writeln("- {$host}: {$info}");
+            $table->addRow([
+                $host, 
+                is_null($result) ? 'Unreachable' : "{$result}ms"
+            ]);
         }
+        
+        $table->render($output);
     }
 }
