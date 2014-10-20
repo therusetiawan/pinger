@@ -2,6 +2,7 @@
 namespace Loct\Pinger\Provider;
 
 use \Loct\Pinger\Command\PingCommand;
+use \Loct\Pinger\PingFactory;
 use \Pimple\Container;
 use \Pimple\ServiceProviderInterface;
 
@@ -27,10 +28,11 @@ class CommandProvider implements ServiceProviderInterface
         {
             $config = $pimple['config'];
 
-            $hosts = $config->get('pinger.hosts');
+            $factory = new PingFactory();
             $notifier = $pimple['notifier'];
+            $hosts = $config->get('pinger.hosts');
 
-            return new PingCommand($hosts, $notifier);
+            return new PingCommand($factory, $notifier, $hosts);
         };
     }
 }
