@@ -8,6 +8,10 @@ php:
   - 5.6
   - hhvm
 
+addons:
+  code_climate:
+    repo_token: 8432fd00f5d96695457d25cf9216a92f8629b8997a68bcdccc093852ec717ee5
+
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - composer install --dev
@@ -17,4 +21,4 @@ script:
   - mkdir -p build/logs
   - phpunit --coverage-clover build/logs/clover.xml
 
-after_success: CODECLIMATE_REPO_TOKEN=8432fd00f5d96695457d25cf9216a92f8629b8997a68bcdccc093852ec717ee5 ./vendor/bin/test-reporter
+after_success: vendor/bin/test-reporter
