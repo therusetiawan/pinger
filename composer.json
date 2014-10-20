@@ -22,7 +22,8 @@
         "m6web/Symfony2-coding-standard": "1.2.*",
         "phpmd/phpmd": "2.1.*",
         "phploc/phploc": "2.0.*",
-        "theseer/phpdox": "0.7.*"
+        "theseer/phpdox": "0.7.*",
+        "codeclimate/php-test-reporter": "0.1.*"
     },
     "config": {
         "preferred-install": "dist"
