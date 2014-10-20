@@ -17,12 +17,6 @@ class PingCommand extends Command
 
     /**
      *
-     * @var Loct\Pinger\PingFactory
-     */
-    private $factory = null;
-
-    /**
-     *
      * @var Loct\Pinger\Notifier\NotifierInterface
      */
     private $notifier = null;
@@ -41,9 +35,8 @@ class PingCommand extends Command
      * @param NotifierInterface $notifier Notifier
      * @param string[]          $hosts    Array of host
      */
-    public function __construct(PingFactory $factory, NotifierInterface $notifier, array $hosts)
+    public function __construct(NotifierInterface $notifier, array $hosts)
     {
-        $this->factory = $factory;
         $this->notifier = $notifier;
         $this->hosts = $hosts;
 
@@ -79,11 +72,9 @@ class PingCommand extends Command
     {
         $pingedHosts = [];
 
-        $factory = $this->factory;
         $hosts = $this->hosts;
         foreach ($hosts as $host) {
-            $ping = $factory->createPing($host);
-            $latency = $ping->ping();
+            $latency = $this->ping($host);
             $pingedHosts[$host] = $latency === false ? null : $latency;
         }
 
@@ -92,18 +83,56 @@ class PingCommand extends Command
 
         $output->writeln('<info>Finished ping-ing all hosts</info>');
         $output->writeln('');
-        
+
         $table = $this->getHelper('table');
         $table->setHeaders(['Host', 'Status', 'Latency']);
-        
+
         foreach ($pingedHosts as $host => $result) {
             $table->addRow([
                 $host,
-                is_null($result) ? '<fg=red>failed</fg=red>' : 'success', 
+                is_null($result) ? '<fg=red>failed</fg=red>' : 'success',
                 is_null($result) ? '-' : "{$result}ms"
             ]);
         }
-        
+
         $table->render($output);
+    }
+
+    protected function extractHostAndPort($source)
+    {
+        $host = $source;
+        $port = 80;
+        $parts = explode(':', $source);
+
+        if (count($parts) === 2) {
+            $host = $parts[0];
+            $port = $parts[1];
+        }
+
+        return ['host' => $host, 'port' => $port];
+    }
+
+    /**
+     * Ping the host
+     *
+     * @param string $host Host to ping
+     * @return boolean
+     */
+    protected function ping($host) {
+        $parts = $this->extractHostAndPort($host);
+
+        $starttime = microtime(true);
+        $file      = @fsockopen ($parts['host'], $parts['port'], $errno, $errstr, 10);
+        $stoptime  = microtime(true);
+        $status    = 0;
+
+        if (!$file) {
+            $status = false;  // Site is down
+        } else {
+            fclose($file);
+            $status = ($stoptime - $starttime) * 1000;
+            $status = floor($status);
+        }
+        return $status;
     }
 }

@@ -28,11 +28,10 @@ class CommandProvider implements ServiceProviderInterface
         {
             $config = $pimple['config'];
 
-            $factory = new PingFactory();
             $notifier = $pimple['notifier'];
             $hosts = $config->get('pinger.hosts');
 
-            return new PingCommand($factory, $notifier, $hosts);
+            return new PingCommand($notifier, $hosts);
         };
     }
 }
