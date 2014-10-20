@@ -12,6 +12,7 @@ interface NotifierInterface
      * Notify all recipients.
      *
      * @param array $pingResults Ping results
+     * @return void
      */
     public function notify(array $pingResults);
 }
