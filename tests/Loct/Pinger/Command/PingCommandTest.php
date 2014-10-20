@@ -12,7 +12,8 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
     {
         $hosts = [
             '127.0.0.1',
-            'google.com'
+            'google.com',
+            '192.168.0.123'
         ];
         $notifier = $this->getMockBuilder('Loct\Pinger\Notifier\NotifierInterface')
             ->getMock();
@@ -30,7 +31,7 @@ class PingCommandTest extends PHPUnit_Framework_TestCase
         $display = $commandTester->getDisplay();
         $this->assertRegExp('/Finished ping-ing all hosts/', $display);
         foreach ($hosts as $host) {
-            $this->assertRegExp("/{$hosts[0]}: /", $display);
+            $this->assertRegExp("/{$hosts[0]}/", $display);
         }
     }
 }
