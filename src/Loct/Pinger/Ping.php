@@ -49,8 +49,8 @@ class Ping extends \JJG\Ping
      * @param string $method
      *   Will always use fsockopen no matter what we choose.
      *
-     * @return integer|false
-     *   Latency as integer, in ms, if host is reachable or FALSE if host is down.
+     * @return double|false
+     *   Latency as double/integer, in ms, if host is reachable or FALSE if host is down.
      */
     public function ping($method = 'exec') {
         $starttime = microtime(true);
