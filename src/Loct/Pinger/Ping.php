@@ -52,7 +52,8 @@ class Ping extends \JJG\Ping
      * @return double|false
      *   Latency as double/integer, in ms, if host is reachable or FALSE if host is down.
      */
-    public function ping($method = 'exec') {
+    public function ping($method = 'exec')
+    {
         $starttime = microtime(true);
         $file = @fsockopen($this->getHost(), $this->getPort(), $errno, $errstr, $this->getTtl());
         $stoptime = microtime(true);
