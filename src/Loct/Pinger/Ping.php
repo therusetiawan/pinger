@@ -55,7 +55,7 @@ class Ping extends \JJG\Ping
     public function ping($method = 'exec')
     {
         $starttime = microtime(true);
-        $file = @fsockopen($this->getHost(), $this->getPort(), $errno, $errstr, $this->getTtl());
+        $file = fsockopen($this->getHost(), $this->getPort(), $errno, $errstr, $this->getTtl());
         $stoptime = microtime(true);
         $latency = false;
 
