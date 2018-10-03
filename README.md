@@ -46,7 +46,7 @@ return [
 CLI Usage
 ---------
 
-Call this from commandline to invoke ping
+Call this from command line to invoke ping
 
 ```sh
 php pinger ping
